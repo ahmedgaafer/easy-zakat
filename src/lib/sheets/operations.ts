@@ -1,19 +1,19 @@
 import { getSheetsClient } from './client';
 import appConfig from '@/lib/appConfig';
 import { google } from 'googleapis';
-import { auth } from '@/lib/auth/index';
+import { getServerAccessToken } from '@/lib/auth';
 
 const SPREADSHEET_ID = appConfig.SPREADSHEET_ID;
 
 export async function getSpreadsheetIdByName(): Promise<string | null> {
-	const session = await auth();
-	if (!session?.accessToken) {
+	const accessToken = await getServerAccessToken();
+	if (!accessToken) {
 		throw new Error('Not authenticated');
 	}
 
 	const oauth2Client = new google.auth.OAuth2();
 	oauth2Client.setCredentials({
-		access_token: session.accessToken as string,
+		access_token: accessToken,
 	});
 
 	const drive = google.drive({ version: 'v3', auth: oauth2Client });
@@ -40,14 +40,14 @@ export async function getOrCreateSpreadsheetByName(): Promise<string> {
 	}
 
 	// Create new spreadsheet if not found
-	const session = await auth();
-	if (!session?.accessToken) {
+	const accessToken = await getServerAccessToken();
+	if (!accessToken) {
 		throw new Error('Not authenticated');
 	}
 
 	const oauth2Client = new google.auth.OAuth2();
 	oauth2Client.setCredentials({
-		access_token: session.accessToken as string,
+		access_token: accessToken,
 	});
 
 	const sheetsAPI = google.sheets({ version: 'v4', auth: oauth2Client });

@@ -12,10 +12,10 @@ export default async function DashboardPage() {
 		redirect('/login');
 	}
 
-	let userData: any[] = [];
+	let userData: unknown[] = [];
 
 	try {
-		userData = await getSheetData('Sheet1!A:F');
+		userData = await getSheetData('Data!A:F');
 		console.log(userData);
 		// Skip header row and filter for current user (row-level security)
 		if (userData.length > 0) {
@@ -48,7 +48,7 @@ export default async function DashboardPage() {
 					</CardHeader>
 					<CardContent>
 						{/* Render your data here */}
-						<pre className="text-sm">{JSON.stringify(userData, null, 2)}</pre>
+						<pre className="text-sm">{JSON.stringify(userData)}</pre>
 					</CardContent>
 				</Card>
 			</div>

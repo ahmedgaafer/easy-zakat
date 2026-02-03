@@ -65,7 +65,7 @@ export default async function RootLayout({
 							<div className="fixed top-4 right-4 z-50 flex gap-2">
 								<ThemeToggle />
 								<LocaleToggle currentLocale={locale} />
-								{session?.accessToken ? (
+								{session?.user ? (
 									<form
 										action={async () => {
 											'use server';

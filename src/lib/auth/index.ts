@@ -4,14 +4,9 @@ import Google from 'next-auth/providers/google';
 import type { Session } from 'next-auth';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import type { JWT } from 'next-auth/jwt';
+import { getToken } from 'next-auth/jwt';
+import { headers } from 'next/headers';
 import env from '../appConfig';
-
-declare module 'next-auth' {
-	interface Session {
-		accessToken?: string;
-		refreshToken?: string;
-	}
-}
 
 declare module 'next-auth/jwt' {
 	interface JWT {
@@ -105,8 +100,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 				return session;
 			}
 
-			session.accessToken = token.accessToken as string;
-			session.refreshToken = token.refreshToken as string;
 			if (session.user) {
 				session.user.id = token.sub || '';
 			}
@@ -114,3 +107,13 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 		},
 	},
 });
+
+export async function getServerAccessToken() {
+	const headersList = await headers();
+	const token = await getToken({
+		req: { headers: headersList },
+		secret: env.NEXTAUTH_SECRET,
+	});
+
+	return token?.accessToken as string | undefined;
+}
