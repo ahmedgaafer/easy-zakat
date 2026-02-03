@@ -11,7 +11,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
-import { Languages } from 'lucide-react';
+import { LuLanguages } from 'react-icons/lu';
 
 interface LocaleToggleProps {
 	currentLocale: Locale;
@@ -37,7 +37,7 @@ export function LocaleToggle({ currentLocale }: LocaleToggleProps) {
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button variant="outline" size="icon" disabled={isPending}>
-					<Languages className="size-4" />
+					<LuLanguages className="size-4" />
 					<span className="sr-only">Toggle language</span>
 				</Button>
 			</DropdownMenuTrigger>

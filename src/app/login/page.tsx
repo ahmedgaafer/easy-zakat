@@ -1,4 +1,6 @@
+import { Button } from '@/components/ui/button';
 import { signIn } from '@/lib/auth';
+import { FcGoogle } from 'react-icons/fc';
 
 export default function LoginPage() {
 	return (
@@ -11,15 +13,13 @@ export default function LoginPage() {
 						await signIn('google', { redirectTo: '/dashboard' });
 					}}
 				>
-					<button
+					<Button
 						type="submit"
-						className="w-full flex items-center justify-center gap-2 rounded-lg border p-3 hover:bg-gray-50"
+						className="bg-black text-white dark:bg-white dark:text-black hover:cursor-pointer align-middle w-full justify-center"
 					>
-						<svg className="h-5 w-5" viewBox="0 0 24 24">
-							{/* Google icon SVG */}
-						</svg>
+						<FcGoogle className="size-5 mr-2" />
 						Continue with Google
-					</button>
+					</Button>
 				</form>
 			</div>
 		</div>

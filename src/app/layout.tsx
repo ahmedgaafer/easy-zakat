@@ -9,6 +9,8 @@ import { Locale } from '@/i18n/i18n.config';
 import { Button } from '@/components/ui/button';
 import { signOut, auth } from '@/lib/auth';
 import { QueryProvider } from '@/components/providers/query-provider';
+import { AuthProvider } from '@/components/providers/auth-provider';
+import { AuthToggle } from '@/components/AuthToggle';
 
 const notoSans = Noto_Sans({ variable: '--font-sans' });
 
@@ -52,37 +54,37 @@ export default async function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<QueryProvider>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="system"
-						enableSystem
-						disableTransitionOnChange
-					>
-						<div className="fixed top-4 right-4 z-50 flex gap-2">
-							<ThemeToggle />
-							<LocaleToggle currentLocale={locale} />
-							{session?.accessToken ? (
-								<form
-									action={async () => {
-										'use server';
-										await signOut({ redirectTo: '/' });
-									}}
-								>
-									<Button variant="outline" type="submit">
-										Sign Out
-									</Button>
-								</form>
-							) : (
-								<Button variant="outline" onClick={() => {}}>
-									Sign In
-								</Button>
-							)}
-						</div>
+				<AuthProvider>
+					<QueryProvider>
+						<ThemeProvider
+							attribute="class"
+							defaultTheme="system"
+							enableSystem
+							disableTransitionOnChange
+						>
+							<div className="fixed top-4 right-4 z-50 flex gap-2">
+								<ThemeToggle />
+								<LocaleToggle currentLocale={locale} />
+								{session?.accessToken ? (
+									<form
+										action={async () => {
+											'use server';
+											await signOut({ redirectTo: '/' });
+										}}
+									>
+										<Button variant="outline" type="submit">
+											Sign Out
+										</Button>
+									</form>
+								) : (
+									<AuthToggle isAuthenticated={false} />
+								)}
+							</div>
 
-						{children}
-					</ThemeProvider>
-				</QueryProvider>
+							{children}
+						</ThemeProvider>
+					</QueryProvider>
+				</AuthProvider>
 			</body>
 		</html>
 	);

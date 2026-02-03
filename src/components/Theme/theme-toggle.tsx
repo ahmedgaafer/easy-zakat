@@ -1,6 +1,6 @@
 'use client';
 
-import { Moon, Sun } from 'lucide-react';
+import { LuMoon, LuSun, LuSunMoon } from 'react-icons/lu';
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,26 +25,39 @@ export function ThemeToggle() {
 	if (!mounted) {
 		return (
 			<Button variant="outline" size="icon" disabled>
-				<Sun className="size-4" />
+				<LuSun className="size-4" />
 				<span className="sr-only">Toggle theme</span>
 			</Button>
 		);
 	}
 
+	const Icon =
+		theme === 'light' ? (
+			<LuSun className="size-4" />
+		) : theme === 'dark' ? (
+			<LuMoon className="size-4" />
+		) : (
+			<LuSunMoon className="size-4" />
+		);
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button variant="outline" size="icon">
-					<Sun className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-					<Moon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+					{Icon}
 					<span className="sr-only">Toggle theme</span>
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
 				<DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-					<DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
-					<DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
-					<DropdownMenuRadioItem value="system">System</DropdownMenuRadioItem>
+					<DropdownMenuRadioItem value="light">
+						<LuSun className="size-4" /> Light
+					</DropdownMenuRadioItem>
+					<DropdownMenuRadioItem value="dark">
+						<LuMoon className="size-4" /> Dark
+					</DropdownMenuRadioItem>
+					<DropdownMenuRadioItem value="system">
+						<LuSunMoon className="size-4" /> System System
+					</DropdownMenuRadioItem>
 				</DropdownMenuRadioGroup>
 			</DropdownMenuContent>
 		</DropdownMenu>
