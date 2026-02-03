@@ -1,0 +1,19 @@
+{
+  "common": {
+    "welcome": "أهلا وسهلا",
+    "home": "الرئيسية",
+    "about": "عن",
+    "contact": "اتصل بنا",
+    "language": "اللغة",
+    "settings": "الإعدادات"
+  },
+  "navigation": {
+    "menu": "القائمة",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق"
+  },
+  "componentExample": {
+    "message": "هذا مثال على المكون"
+  }
+}

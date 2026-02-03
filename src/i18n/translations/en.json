@@ -1,0 +1,19 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "language": "Language",
+    "settings": "Settings"
+  },
+  "navigation": {
+    "menu": "Menu",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous"
+  },
+  "componentExample": {
+    "message": "This is an example component"
+  }
+}
